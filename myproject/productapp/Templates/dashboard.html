@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="card shadow p-4">
+  <h3 class="text-center mb-3">My Career Prediction History</h3>
+  <canvas id="careerChart" style="height:400px;"></canvas>
+
+  <table class="table table-bordered table-striped mb-4">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Career Result</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in history %}
+      <tr>
+        <td>{{loop.counter }}</td>
+        <td><strong>{{ item.career_result }}</strong></td>
+        <td>{{ item.date|date:"Y-m-d H:i" }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center text-danger">No records found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<!-- Charts 
+  <div class="row">
+    <div class="col-md-6">
+      <h5 class="text-center text-primary">Career Distribution (Pie Chart)</h5>
+      <canvas id="careerPieChart"></canvas>
+    </div>
+    <div class="col-md-6">
+      <h5 class="text-center text-success">Career Trends (Bar Chart)</h5>
+      <canvas id="careerBarChart"></canvas>
+    </div>
+  </div>
+</div>-->
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const labels = {{ labels|safe }};
+  const values = {{ values|safe }};
+  if (labels.length > 0){
+
+  // Pie Chart
+  new Chart(document.getElementById('careerChart'), {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label:"Prediction"
+        data: values.maps(v =Number(v))
+        backgroundColor: [
+          '#00a8ff', '#9c88ff', '#fbc531', '#4cd137', '#e84118', '#487eb0'
+        ],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        title : {display:true , text:'Your career predication frequency'}
+      }
+    }
+  });
+  }
+  else{
+
+    document.getElementById('careerChart').outerHTML="<p class= 'text-center text-muted mt-4'> No Predication yet</p>"
+  }
+</script>
+
+{% endblock %}
+
+<!--
+  // Bar Chart
+  new Chart(document.getElementById('careerBarChart'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Prediction Count',
+        data: values.map(v == Number(v)),
+        backgroundColor: '#273c75'
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>-->

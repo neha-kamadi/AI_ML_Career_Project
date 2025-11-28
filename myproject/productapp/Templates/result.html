@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card shadow-lg p-4 text-center mt-5">
+  <h2 class="text-primary mb-3">Your Career Prediction Result</h2>
+  <hr/>
+
+  {% if career %}
+  <h3 class="text-success">Recommended Career Path:</h3>
+  <h2><b>{{ career }}</b></h2>
+
+  <p class="mt-3">
+    Based on your skills and interests, this career suits you best.
+  </p>
+  <a href="dashboard.html" class="btn btn-dark mt-3">Try Again</a>
+  {% else %}
+  <p class="text-danger">
+    No career prediction available. Please try again from the home page.
+  </p>
+  <a href="home.html" class="btn btn-primary mt-3">Go to Home</a>
+  {% endif %}
+</div>
+{%endblock%}

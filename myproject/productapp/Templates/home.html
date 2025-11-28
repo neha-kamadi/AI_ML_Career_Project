@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card p-4 shadow-lg">
+  <h1 class="text-center mb-4 text-success">WELCOME AI CAREER COUNSELOR !</h1>
+  <h3 class="text-center mb-4 text-success">Find Your Ideal Career Path ..</h3>
+  <p class="text-center mb-4">
+    <b>This is Ai career gudiance/<b>
+    <i>enter your skills and intersets we are give wornderfull ideas!</i>
+  </p>
+  <form action="{%url 'result'%}" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Enter Your Skills</label>
+      <input
+        type="text"
+        name="skills"
+        class="form-control"
+        placeholder="e.g. Python, Machine Learning, Design"/>
+    </div>
+    <div class="mb-3">
+      <label>Enter Your Interests:</label>
+      <input
+        type="text"
+        name="interests"
+        class="form-control"
+        placeholder="e.g. Data, Creativity, Management" />
+    </div>
+    <button class="btn btn-primary w-100">Get Career Recommendation</button>
+    
+  </form>
+</div>
+{% endblock %}
